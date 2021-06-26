@@ -49,8 +49,13 @@
 
           </div>
       </nav>
-      <div>
-        <p>Testing the CD/CI stuff. Once upon a time in a distant land....</p>
+      <div class="">
+          {% for dealer in dealer_list %}
+          <ul>
+            <button type="button" class="btn btn-info">{{ dealer }}</button>
+            <b class="btn-info"></b>
+          </ul>
+          {% endfor %}
       </div>
 
     <!--Add a dealer table here -->

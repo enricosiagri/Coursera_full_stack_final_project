@@ -7,6 +7,7 @@ from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
 from datetime import datetime
+from .restapis import get_dealers_from_cf
 import logging
 import json
 
@@ -101,9 +102,18 @@ def logout_request(request):
 
 def get_dealerships(request):
     context = {}
+    dealer_names = []
     if request.method == "GET":
+        url = "https://6a8bacb1.eu-gb.apigw.appdomain.cloud/dealerships/read-project-entries-sequence"
+        # Get dealers from the URL
+        dealerships = get_dealers_from_cf(url)
+        # Concat all dealer's short name
+        for dealer in dealerships:
+            dealer_names.append(dealer.full_name)
+        # Return a list of dealer short name
+        context['dealer_list'] = dealer_names
+        #return HttpResponse(dealer_names)
         return render(request, 'djangoapp/index.html', context)
-
 
 # Create a `get_dealer_details` view to render the reviews of a dealer
 # def get_dealer_details(request, dealer_id):

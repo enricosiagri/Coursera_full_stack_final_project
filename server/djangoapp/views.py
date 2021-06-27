@@ -102,23 +102,26 @@ def logout_request(request):
 
 def get_dealerships(request):
     context = {}
-    dealer_names = []
+    dealer_obj = []
     if request.method == "GET":
         url = "https://6a8bacb1.eu-gb.apigw.appdomain.cloud/dealerships/read-project-entries-sequence"
         # Get dealers from the URL
         dealerships = get_dealers_from_cf(url)
         # Concat all dealer's short name
         for dealer in dealerships:
-            dealer_names.append(dealer.full_name)
+            dealer_obj.append(dealer)
         # Return a list of dealer short name
-        context['dealer_list'] = dealer_names
+        context['dealer_list'] = dealer_obj
         #return HttpResponse(dealer_names)
         return render(request, 'djangoapp/index.html', context)
 
 # Create a `get_dealer_details` view to render the reviews of a dealer
 # def get_dealer_details(request, dealer_id):
 # ...
-
+def get_dealer_details(request):
+    context = {}
+    if request.method == 'GET':
+        return render(request, 'djangoapp/dealer_details.html', context)
 # Create a `add_review` view to submit a review
 # def add_review(request, dealer_id):
 # ...

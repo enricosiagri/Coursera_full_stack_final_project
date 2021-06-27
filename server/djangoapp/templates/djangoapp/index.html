@@ -49,16 +49,21 @@
 
           </div>
       </nav>
-      <div class="">
-          {% for dealer in dealer_list %}
-          <ul>
-            <button type="button" class="btn btn-info">{{ dealer }}</button>
-            <b class="btn-info"></b>
-          </ul>
-          {% endfor %}
-      </div>
+      {% if dealer_list %}
+        {% for dealer in dealer_list %}
+        <div class="card">
+          <div class="card-header"> CAR DEALERSHIP {{dealer.id}}</div>
+          <div class="card-body text-center">
+            <h5 class="card-title">{{ dealer.full_name }}</h5>
+            <p class="card-text"> </p>
+            <a href="{% url 'djangoapp:details' %}" class="btn btn-primary">Enter</a>
+          </div>
+        </div>
+        {% endfor %}
+      {% else %}
+          <p>No Dealerships are available.</p>
+      {% endif %}
 
-    <!--Add a dealer table here -->
 
     </body>
 
